@@ -3,6 +3,7 @@
 
 import 'package:apna_canteen/login/view/screen_login.dart';
 import 'package:apna_canteen/login/viewmodel/auth.dart';
+import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +23,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   const MaterialApp(
+    return    MaterialApp(
+      theme: ThemeData(
+         scaffoldBackgroundColor: kWhiteColor,
+            backgroundColor: kWhiteColor,
+         textTheme: const TextTheme(
+              bodyText1: TextStyle(color: kWhiteColor),
+              bodyText2: TextStyle(color: kWhiteColor),
+            ),
+           appBarTheme: const AppBarTheme(backgroundColor:kBlackColor)
+      ),
       debugShowCheckedModeBanner: false,
-      home: ScreenSignIn(),
+      home: const ScreenSignIn(),
     );
   }
 }
