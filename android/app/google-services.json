@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "460556339665",
+    "project_id": "fooddelivery-7af53",
+    "storage_bucket": "fooddelivery-7af53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:460556339665:android:7ba1753355c8c36d2bb8f0",
+        "android_client_info": {
+          "package_name": "com.vshnu.apna_kitchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "460556339665-mbsrgeki45oci70qvudtbrsk9mnodftu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vshnu.apna_kitchen",
+            "certificate_hash": "e192107521f1076803b46ef7382c569fdd42b63c"
+          }
+        },
+        {
+          "client_id": "460556339665-1jun8h79h7h6aocbobpig0qm0gfp6kep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbVBPdlmT05B2TbWjxuKpy20axV9_42hI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "460556339665-1jun8h79h7h6aocbobpig0qm0gfp6kep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
