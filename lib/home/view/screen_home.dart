@@ -1,3 +1,4 @@
+import 'package:apna_canteen/product_overview/view/product_overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class ScreenHome extends StatelessWidget {
               icon: Icons.search_outlined,
             ),
             CircleavatarIconWidget(
-              icon: Icons.shop_outlined,
+              icon: Icons.shopping_cart,
             ),
           ],
         ),
@@ -32,14 +33,16 @@ class ScreenHome extends StatelessWidget {
               ),
               kheight15,
               LimitedBox(
-                  maxHeight:200,
+                  maxHeight: 200,
                   child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: 10,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: ((context, index) {
                         return FoodContainerWidget(
-                          image: 'assets/southIndian.png', foodName: 'Dosa', price: '₹ 70',
+                          image: 'assets/southIndian.png',
+                          foodName: 'Dosa',
+                          price: '₹ 70',
                         );
                       }))),
               kheight20,
@@ -55,7 +58,9 @@ class ScreenHome extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: ((context, index) {
                         return FoodContainerWidget(
-                          image: 'assets/chowmein.png', foodName: 'Chow mein', price: '₹ 180',
+                          image: 'assets/chowmein.png',
+                          foodName: 'Chow mein',
+                          price: '₹ 180',
                         );
                       }))),
             ],
@@ -68,89 +73,100 @@ class FoodContainerWidget extends StatelessWidget {
   String image;
   String foodName;
   String price;
-  FoodContainerWidget({Key? key, required this.image, required this.foodName,required this.price})
+  FoodContainerWidget(
+      {Key? key,
+      required this.image,
+      required this.foodName,
+      required this.price})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(right: 15),
-        height: 200,
-        width: 140,
-        decoration: BoxDecoration(
-          color: const Color(0xffF3F4F8),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            kheight5,
-            Expanded(
-                flex: 4,
-                child: Image.asset(
-                  image,
-                )),
-            Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    Text(foodName,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                            fontSize: 18,
-                            color: kBlackColor)),
-                    kheight5,
-                     Text(price,
-                      // '₹ 130',
-                        style: const TextStyle(fontSize: 18, color: Colors.grey)),
-                    kheight5,
-                    Container(
-                        height: 29,
-                        width: 110,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffffd018),
-                                borderRadius: BorderRadius.circular(5),
+    return GestureDetector(
+      onTap: (() {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const ScreenProductOverview()));
+      }),
+      child: Container(
+          margin: const EdgeInsets.only(right: 15),
+          height: 200,
+          width: 140,
+          decoration: BoxDecoration(
+            color: const Color(0xffF3F4F8),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              kheight5,
+              Expanded(
+                  flex: 4,
+                  child: Image.asset(
+                    image,
+                  )),
+              Expanded(
+                  flex: 3,
+                  child: Column(
+                    children: [
+                      Text(foodName,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1,
+                              fontSize: 18,
+                              color: kBlackColor)),
+                      kheight5,
+                      Text(price,
+                          // '₹ 130',
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.grey)),
+                      kheight5,
+                      Container(
+                          height: 29,
+                          width: 110,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffffd018),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: const Icon(
+                                  Icons.remove,
+                                  size: 17,
+                                ),
                               ),
-                              child: const Icon(
-                                Icons.remove,
-                                size: 17,
+                              const Text(
+                                '1',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w900,
+                                    color: kBlackColor),
                               ),
-                            ),
-                            const Text(
-                              '1',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w900,
-                                  color: kBlackColor),
-                            ),
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffffd018),
-                                borderRadius: BorderRadius.circular(5),
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffffd018),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: const Icon(
+                                  Icons.add,
+                                  size: 17,
+                                ),
                               ),
-                              child: const Icon(
-                                Icons.add,
-                                size: 17,
-                              ),
-                            ),
-                          ],
-                        ))
-                  ],
-                ))
-          ],
-        ));
+                            ],
+                          ))
+                    ],
+                  ))
+            ],
+          )),
+    );
   }
 }
 
@@ -212,7 +228,7 @@ class TopHomeContainerWid extends StatelessWidget {
                         height: 60,
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
+                                topLeft: Radius.circular(10),
                                 bottomRight: Radius.circular(40),
                                 bottomLeft: Radius.circular(40)),
                             color: Color(0xff1b663e)),
@@ -278,10 +294,10 @@ class CircleavatarIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: CircleAvatar(
-        radius: 18,
-        backgroundColor: const Color(0xff8f6f7d),
-        child: Icon(icon),
+      child: Icon(
+        icon,
+        color: kWhiteColor,
+        size: 30,
       ),
     );
   }
