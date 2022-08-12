@@ -1,4 +1,3 @@
-
 import 'package:apna_canteen/product_overview/view/widgets/bottom_bar.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/fonts/font.dart';
@@ -13,7 +12,7 @@ class ScreenProductOverview extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kWhiteColor,
+        
         foregroundColor: kBlackColor,
       ),
       bottomNavigationBar: const BottomBarwidget(),
@@ -23,7 +22,7 @@ class ScreenProductOverview extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             FoodNameOverviewHead(),
-            kheight15,
+            kheight,
             CustomedFoodContainerWid(),
             kheight20,
             FoodDetailsWidget(),
@@ -78,40 +77,21 @@ class FoodDetailsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '₹ 70',
+              '₹ 70.00',
               style: primaryFontDSans(
                   fcolor: Colors.black.withOpacity(.7),
                   fsize: 25,
                   fweight: FontWeight.w900),
             ),
             const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 5),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(25)),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.add,
-                    color: Color(0xffffd018),
-                    size: 28,
-                  ),
-                  Text(
-                    'Add',
-                    style: primaryFontDSans(
-                        fcolor: const Color(0xffffd018), fsize: 20),
-                  )
-                ],
-              ),
-            ),
+           IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border_outlined,size: 30,color: Colors.red,))
           ],
         ),
         kheight,
         Text(
           'Get upto 50% off on your first order*',
           style: primaryFontDSansoff(
-              fcolor: Colors.red, fsize: 14, fweight: FontWeight.w900),
+              fcolor: const Color(0xff6bb044), fsize: 14, fweight: FontWeight.w900),
         ),
         kheight,
         Container(
@@ -122,16 +102,16 @@ class FoodDetailsWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(25)),
           child: Row(
             children: [
-              const Icon(
-                Icons.percent,
-                color: Color(0xffffd018),
-                size: 14,
-              ),
               Text(
                 'Coupons',
                 style: primaryFontDSans(
-                    fcolor: const Color(0xffffd018), fsize: 12),
-              )
+                    fcolor: const Color(0xff4d434b), fsize: 12),
+              ),
+              const Icon(
+                Icons.percent,
+                color: Color(0xff4d434b),
+                size: 14,
+              ),
             ],
           ),
         ),
@@ -142,7 +122,7 @@ class FoodDetailsWidget extends StatelessWidget {
               primaryFontDSans(fsize: 17, fcolor: Colors.black.withOpacity(.7)),
         ),
         kheight5,
-         Text(
+        Text(
           'Masala Dosa / dosey / dosai is a variation of the popular South Indian dosa which has its origins in Tuluva Udupi cuisine of Karnataka. It is made from rice, lentils, potato, fenugreek, ghee and curry leaves, and served with chutneys and sambar. It is popular in South India.',
           style: primaryFontDSansoff(fsize: 13, fcolor: Colors.grey),
         )
