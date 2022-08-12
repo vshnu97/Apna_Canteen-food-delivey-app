@@ -32,7 +32,7 @@ class ScreenHome extends StatelessWidget {
               ),
               kheight15,
               LimitedBox(
-                  maxHeight: 210,
+                  maxHeight:200,
                   child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       itemCount: 10,
@@ -76,7 +76,7 @@ class FoodContainerWidget extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(right: 15),
         height: 200,
-        width: 150,
+        width: 140,
         decoration: BoxDecoration(
           color: const Color(0xffF3F4F8),
           borderRadius: BorderRadius.circular(15),
@@ -112,18 +112,18 @@ class FoodContainerWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              height: 25,
-                              width: 25,
+                              height: 20,
+                              width: 20,
                               decoration: BoxDecoration(
                                 color: const Color(0xffffd018),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: const Icon(
                                 Icons.remove,
-                                size: 20,
+                                size: 17,
                               ),
                             ),
                             const Text(
@@ -134,15 +134,15 @@ class FoodContainerWidget extends StatelessWidget {
                                   color: kBlackColor),
                             ),
                             Container(
-                              height: 25,
-                              width: 25,
+                              height: 20,
+                              width: 20,
                               decoration: BoxDecoration(
                                 color: const Color(0xffffd018),
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: const Icon(
                                 Icons.add,
-                                size: 20,
+                                size: 17,
                               ),
                             ),
                           ],
@@ -212,7 +212,7 @@ class TopHomeContainerWid extends StatelessWidget {
                         height: 60,
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
+                              topLeft: Radius.circular(10),
                                 bottomRight: Radius.circular(40),
                                 bottomLeft: Radius.circular(40)),
                             color: Color(0xff1b663e)),
