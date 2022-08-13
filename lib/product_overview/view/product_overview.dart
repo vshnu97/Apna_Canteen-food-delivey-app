@@ -18,8 +18,8 @@ class ScreenProductOverview extends StatelessWidget {
       bottomNavigationBar: const BottomBarwidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+         
           children: const [
             FoodNameOverviewHead(),
             kheight,

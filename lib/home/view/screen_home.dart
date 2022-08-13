@@ -1,5 +1,6 @@
 import 'package:apna_canteen/home/view/widgets/chinese.dart';
 import 'package:apna_canteen/home/view/widgets/south_indian.dart';
+import 'package:apna_canteen/review_cart/view/review_cart.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,24 @@ class ScreenHome extends StatelessWidget {
           foregroundColor: kBlackColor,
           title: const Text('Home'),
           actions: [
-            CircleavatarIconWidget(
-              icon: Icons.search_outlined,
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.search,
+                size: 30,
+                color: kBlackColor,
+              ),
             ),
-            CircleavatarIconWidget(
-              icon: Icons.shopping_cart,
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ReviewCart()));
+              },
+              icon: const Icon(
+                Icons.shopping_cart,
+                size: 30,
+                color: kBlackColor,
+              ),
             ),
           ],
         ),
@@ -184,23 +198,6 @@ class TopHomeContainerWid extends StatelessWidget {
             )),
         Expanded(child: Container())
       ]),
-    );
-  }
-}
-
-class CircleavatarIconWidget extends StatelessWidget {
-  IconData icon;
-  CircleavatarIconWidget({Key? key, required this.icon}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Icon(
-        icon,
-        color: kBlackColor,
-        size: 30,
-      ),
     );
   }
 }
