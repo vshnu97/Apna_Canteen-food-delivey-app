@@ -2,6 +2,7 @@ import 'package:apna_canteen/home/view/widgets/chinese.dart';
 import 'package:apna_canteen/home/view/widgets/south_indian.dart';
 import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/review_cart/view/review_cart.dart';
+import 'package:apna_canteen/search/view/screen_search.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,10 @@ class ScreenHome extends StatelessWidget {
           title: const Text('Home'),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ScreenSearch()));
+              },
               icon: const Icon(
                 Icons.search,
                 size: 30,

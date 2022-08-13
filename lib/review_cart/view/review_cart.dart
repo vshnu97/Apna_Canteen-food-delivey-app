@@ -52,7 +52,7 @@ class ReviewCart extends StatelessWidget {
                               style: primaryFontDSans(),
                             ),
                             Container(
-                              height: 35,
+                              height: 32,
                               width: 80,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
@@ -87,10 +87,10 @@ class ReviewCart extends StatelessWidget {
                               ],
                             ),
                             Text(
-                              'You save ₹35.00',
+                              'You save ₹35.00 ',
                               style: primaryFontDSansoff(
                                   fcolor: const Color(0xff6bb044),
-                                  fsize: 14,
+                                  fsize: 13,
                                   fweight: FontWeight.w900),
                             ),
                             kheight5,
