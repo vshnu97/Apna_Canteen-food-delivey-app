@@ -1,17 +1,14 @@
+import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/product_overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
 
 class SouthIndianFoodWidget extends StatelessWidget {
-  String image;
-  String foodName;
-  String price;
-  SouthIndianFoodWidget(
+ final ModelClass dataQ;
+  const SouthIndianFoodWidget(
       {Key? key,
-      required this.image,
-      required this.foodName,
-      required this.price})
+     required this.dataQ})
       : super(key: key);
 
   @override
@@ -35,22 +32,20 @@ class SouthIndianFoodWidget extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const ScreenProductOverview()));
                   },
-                  child: Image.asset(
-                    image,
-                  ),
+                  child:Image.network(dataQ.foodImage)
                 )),
             Expanded(
                 flex: 3,
                 child: Column(
                   children: [
-                    Text(foodName,
+                    Text(dataQ.foodName,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1,
                             fontSize: 18,
                             color: kBlackColor)),
                     kheight5,
-                    Text(price,
+                    Text(dataQ.foodPrice.toString(),
                         // '₹ 130',
                         style:
                             const TextStyle(fontSize: 18, color: Colors.grey)),

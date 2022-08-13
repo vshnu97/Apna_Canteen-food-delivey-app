@@ -1,6 +1,7 @@
 
 
 
+import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/login/view/screen_login.dart';
 import 'package:apna_canteen/login/viewmodel/auth.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
@@ -14,6 +15,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp();
   runApp(MultiProvider(providers: [
      ChangeNotifierProvider<LogInAuth>(create: ((context) => LogInAuth(FirebaseAuth.instance))),
+      ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
   ],
   child: const MyApp()));
 }
