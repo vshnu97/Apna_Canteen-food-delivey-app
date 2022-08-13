@@ -1,12 +1,16 @@
 import 'package:apna_canteen/home/view/screen_home.dart';
+import 'package:apna_canteen/login/viewmodel/user_prov.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class LogInAuth extends ChangeNotifier {
   FirebaseAuth firebase;
   LogInAuth(this.firebase);
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+ 
   Future<String> googleLogIn(BuildContext context) async {
     try {
       final isLogged = await GoogleSignIn().isSignedIn();
@@ -15,11 +19,24 @@ class LogInAuth extends ChangeNotifier {
       if (result == null) {
         return Future.value("Ocurred an error");
       }
-      final cred = await result.authentication;
-      await firebase.signInWithCredential(GoogleAuthProvider.credential(
-          accessToken: cred.accessToken, idToken: cred.idToken));
 
-   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ScreenHome()));
+ final cred = await result.authentication;
+final AuthCredential credential =GoogleAuthProvider.credential(
+          accessToken: cred.accessToken, idToken: cred.idToken);
+
+
+     
+  final User? user =  (await _auth.signInWithCredential(credential)).user;
+
+     context.read<UserProvider>().addUserData(
+      currentUser: user!,
+       userName: user.displayName, 
+       userImage: user.photoURL, 
+       userEmail: user.email
+       );
+ 
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const ScreenHome()));
       return Future.value('');
     } on FirebaseAuthException catch (exe) {
       return Future.value(exe.message);
