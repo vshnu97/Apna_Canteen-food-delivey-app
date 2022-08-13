@@ -1,9 +1,12 @@
 import 'package:apna_canteen/home/view/widgets/chinese.dart';
 import 'package:apna_canteen/home/view/widgets/south_indian.dart';
+import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/review_cart/view/review_cart.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({Key? key}) : super(key: key);
@@ -50,18 +53,23 @@ class ScreenHome extends StatelessWidget {
               ),
               kheight15,
               LimitedBox(
-                  maxHeight: 200,
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: ((context, index) {
-                        return SouthIndianFoodWidget(
-                          image: 'assets/southIndian.png',
-                          foodName: 'Dosa',
-                          price: '₹ 70.00',
-                        );
-                      }))),
+                  maxHeight: 210,
+                  child: Consumer<HomeProv>(builder: (context, value, child) {
+                    return value.southIndianList.isNotEmpty
+                        ? ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: value.southIndianList.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: ((context, index) {
+                              final dataQ = value.southIndianList[index];
+                              return SouthIndianFoodWidget(
+                                dataQ: dataQ,
+                              );
+                            }))
+                        : const CupertinoActivityIndicator(
+                            radius: 50,
+                          );
+                  })),
               kheight20,
               CategoryRowWid(
                 title: 'Chinese',
