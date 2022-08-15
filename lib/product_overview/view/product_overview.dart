@@ -1,31 +1,40 @@
+import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/widgets/bottom_bar.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/fonts/font.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ScreenProductOverview extends StatelessWidget {
-  const ScreenProductOverview({Key? key}) : super(key: key);
+  final ModelClass dataQ;
+  const ScreenProductOverview({Key? key, required this.dataQ})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        
         foregroundColor: kBlackColor,
       ),
       bottomNavigationBar: const BottomBarwidget(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: ListView(
-         
-          children: const [
-            FoodNameOverviewHead(),
+          children: [
+            FoodNameOverviewHead(
+              dataQ: dataQ,
+            ),
             kheight,
-            CustomedFoodContainerWid(),
+            CustomedFoodContainerWid(
+              dataQ: dataQ,
+            ),
             kheight20,
-            FoodDetailsWidget(),
+            FoodDetailsWidget(
+              dataQ: dataQ,
+            ),
           ],
         ),
       ),
@@ -64,9 +73,8 @@ class BottomBarwidget extends StatelessWidget {
 }
 
 class FoodDetailsWidget extends StatelessWidget {
-  const FoodDetailsWidget({
-    Key? key,
-  }) : super(key: key);
+  final ModelClass dataQ;
+  const FoodDetailsWidget({Key? key, required this.dataQ}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,43 +85,52 @@ class FoodDetailsWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              '₹ 70.00',
+              dataQ.foodPrice,
               style: primaryFontDSans(
                   fcolor: Colors.black.withOpacity(.7),
                   fsize: 25,
                   fweight: FontWeight.w900),
             ),
             const Spacer(),
-           IconButton(onPressed: (){}, icon: const Icon(Icons.favorite_border_outlined,size: 30,color: Colors.red,))
           ],
         ),
         kheight,
         Text(
           'Get upto 50% off on your first order*',
           style: primaryFontDSansoff(
-              fcolor: const Color(0xff6bb044), fsize: 14, fweight: FontWeight.w900),
+              fcolor: const Color(0xff6bb044),
+              fsize: 14,
+              fweight: FontWeight.w900),
         ),
         kheight,
-        Container(
-          width: 90,
-          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(25)),
-          child: Row(
-            children: [
-              Text(
-                'Coupons',
-                style: primaryFontDSans(
-                    fcolor: const Color(0xff4d434b), fsize: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const InfoWidget(
+              icon: Icons.star,
+              info: '4.08',
+              time: 'Ratings',
+              iconClr: Color(0xffffd018),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                6,
+                (index) => Container(
+                  margin: const EdgeInsets.symmetric(vertical: 2),
+                  height: 3,
+                  width: 3,
+                  color: Colors.grey.withOpacity(.5),
+                ),
               ),
-              const Icon(
-                Icons.percent,
-                color: Color(0xff4d434b),
-                size: 14,
-              ),
-            ],
-          ),
+            ),
+            const InfoWidget(
+              icon: FontAwesomeIcons.fire,
+              info: 'Recommented',
+              time: 'Top Rated',
+              iconClr: Colors.red,
+            ),
+          ],
         ),
         kheight20,
         Text(
@@ -131,10 +148,70 @@ class FoodDetailsWidget extends StatelessWidget {
   }
 }
 
-class CustomedFoodContainerWid extends StatelessWidget {
-  const CustomedFoodContainerWid({
+gFontsOleo(
+    {Color dcCl = kWhiteColor,
+    var td = TextDecoration.none,
+    double sz = 16,
+    double ls = 0,
+    FontWeight fw = FontWeight.bold,
+    Color cl = kBlackColor}) {
+  return GoogleFonts.mukta(
+    decorationColor: dcCl,
+    decoration: td,
+    fontSize: sz,
+    letterSpacing: ls,
+    fontWeight: fw,
+    color: cl,
+  );
+}
+
+class InfoWidget extends StatelessWidget {
+  const InfoWidget({
     Key? key,
+    required this.iconClr,
+    required this.icon,
+    required this.info,
+    required this.time,
   }) : super(key: key);
+  final String time;
+  final IconData icon;
+  final String info;
+  final Color iconClr;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        Icon(
+          (icon),
+          color: iconClr,
+          size: 20,
+        ),
+        const SizedBox(height: 10),
+        Text(
+          time,
+          style: gFontsOleo(
+            cl: kBlackColor.withOpacity(.7),
+            sz: 14,
+          ),
+        ),
+        Text(
+          info,
+          style: gFontsOleo(
+            cl: Colors.grey,
+            sz: 12,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class CustomedFoodContainerWid extends StatelessWidget {
+  final ModelClass dataQ;
+  const CustomedFoodContainerWid({Key? key, required this.dataQ})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,26 +230,37 @@ class CustomedFoodContainerWid extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(45),
                       bottomRight: Radius.circular(60))),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Chutney, Sambar,\nFilter Coffee \nincluded',
-                    style: primaryFont(fsize: 16, fcolor: kWhiteColor),
-                  ),
-                  kheight20
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    kheight5,
+                    Text(
+                      dataQ.foodSideDish,
+                      style: primaryFont(fsize: 15, fcolor: kWhiteColor),
+                    ),
+                    kheight30
+                  ],
+                ),
               ),
             ),
           ],
         ),
-        Row(
-          children: [
-            Image.asset(
-              'assets/southIndian.png',
-              height: 240,
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 55),
+          child: Row(
+            children: [
+              Flexible(
+                child: Hero(
+                    tag: dataQ.foodImage,
+                    child: Image(
+                      image: NetworkImage(dataQ.foodImage),
+                      height: 210,
+                    )),
+              ),
+            ],
+          ),
         )
       ],
     );
@@ -180,14 +268,13 @@ class CustomedFoodContainerWid extends StatelessWidget {
 }
 
 class FoodNameOverviewHead extends StatelessWidget {
-  const FoodNameOverviewHead({
-    Key? key,
-  }) : super(key: key);
+  final ModelClass dataQ;
+  const FoodNameOverviewHead({Key? key, required this.dataQ}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Masala Dosa',
+      dataQ.foodName,
       style: primaryFont(),
     );
   }

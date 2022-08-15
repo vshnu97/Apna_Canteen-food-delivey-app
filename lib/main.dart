@@ -1,6 +1,4 @@
-
-
-
+import 'package:apna_canteen/home/viewmodel/add_button_prov.dart';
 import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/login/view/screen_login.dart';
 import 'package:apna_canteen/login/viewmodel/auth.dart';
@@ -12,14 +10,16 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main(List<String> args) async {
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(providers: [
-     ChangeNotifierProvider<LogInAuth>(create: ((context) => LogInAuth(FirebaseAuth.instance))),
-      ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
-       ChangeNotifierProvider<UserProvider>(create: ((context) => UserProvider())),
-  ],
-  child: const MyApp()));
+    ChangeNotifierProvider<LogInAuth>(
+        create: ((context) => LogInAuth(FirebaseAuth.instance))),
+    ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
+    ChangeNotifierProvider<UserProvider>(create: ((context) => UserProvider())),
+    ChangeNotifierProvider<AddButtonProv>(
+        create: ((context) => AddButtonProv())),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -27,16 +27,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    MaterialApp(
+    return MaterialApp(
       theme: ThemeData(
-         scaffoldBackgroundColor:const Color(0xffe6eaef),
-            backgroundColor: const Color(0xffe6eaef),
-         textTheme: const TextTheme(
-              bodyText1: TextStyle(color: kWhiteColor),
-              bodyText2: TextStyle(color: kWhiteColor),
-            ),
-           appBarTheme: const AppBarTheme(backgroundColor:Color(0xffe6eaef))
-      ),
+          scaffoldBackgroundColor: const Color(0xffe6eaef),
+          backgroundColor: const Color(0xffe6eaef),
+          textTheme: const TextTheme(
+            bodyText1: TextStyle(color: kWhiteColor),
+            bodyText2: TextStyle(color: kWhiteColor),
+          ),
+          appBarTheme: const AppBarTheme(backgroundColor: Color(0xffe6eaef))),
       debugShowCheckedModeBanner: false,
       home: const ScreenSignIn(),
     );
