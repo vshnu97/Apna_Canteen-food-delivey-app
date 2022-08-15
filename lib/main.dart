@@ -3,6 +3,7 @@ import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/login/view/screen_login.dart';
 import 'package:apna_canteen/login/viewmodel/auth.dart';
 import 'package:apna_canteen/login/viewmodel/user_prov.dart';
+import 'package:apna_canteen/product_overview/viewmodel/overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ void main(List<String> args) async {
     ChangeNotifierProvider<LogInAuth>(
         create: ((context) => LogInAuth(FirebaseAuth.instance))),
     ChangeNotifierProvider<HomeProv>(create: ((context) => HomeProv())),
+     ChangeNotifierProvider<OverviewProv>(create: ((context) => OverviewProv())),
     ChangeNotifierProvider<UserProvider>(create: ((context) => UserProvider())),
     ChangeNotifierProvider<AddButtonProv>(
         create: ((context) => AddButtonProv())),

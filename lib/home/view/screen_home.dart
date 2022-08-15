@@ -71,7 +71,7 @@ class ScreenHome extends StatelessWidget {
                               );
                             }))
                         : const CupertinoActivityIndicator(
-                            radius: 50,
+                            radius: 40,
                           );
                   })),
               kheight20,

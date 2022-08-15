@@ -41,4 +41,19 @@ primaryFontDSansoff(
     
       color: fcolor);
 }
-
+gFontsOleo(
+    {Color dcCl = kWhiteColor,
+    var td = TextDecoration.none,
+    double sz = 16,
+    double ls = 0,
+    FontWeight fw = FontWeight.bold,
+    Color cl = kBlackColor}) {
+  return GoogleFonts.mukta(
+    decorationColor: dcCl,
+    decoration: td,
+    fontSize: sz,
+    letterSpacing: ls,
+    fontWeight: fw,
+    color: cl,
+  );
+}

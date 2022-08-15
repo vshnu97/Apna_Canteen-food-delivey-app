@@ -1,11 +1,14 @@
 import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/widgets/bottom_bar.dart';
+import 'package:apna_canteen/product_overview/view/widgets/info_widget.dart';
+import 'package:apna_canteen/product_overview/viewmodel/overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/fonts/font.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ScreenProductOverview extends StatelessWidget {
   final ModelClass dataQ;
@@ -23,6 +26,7 @@ class ScreenProductOverview extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             FoodNameOverviewHead(
               dataQ: dataQ,
@@ -78,25 +82,32 @@ class FoodDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pov = Provider.of<OverviewProv>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              dataQ.foodPrice,
+              "₹ ${dataQ.foodOfferPrice}.00",
               style: primaryFontDSans(
-                  fcolor: Colors.black.withOpacity(.7),
-                  fsize: 25,
-                  fweight: FontWeight.w900),
+                  fcolor: Colors.black, fsize: 25, fweight: FontWeight.w800),
             ),
-            const Spacer(),
+            const SizedBox(
+              width: 15,
+            ),
+            Text(
+              "₹ ${dataQ.foodPrice}.00",
+              style: const TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  fontSize: 18,
+                  color: Colors.grey),
+            )
           ],
         ),
         kheight,
         Text(
-          'Get upto 50% off on your first order*',
+          'You got ${pov.dicountFuntion(dataQ.foodPrice, dataQ.foodOfferPrice)}% off on your meal',
           style: primaryFontDSansoff(
               fcolor: const Color(0xff6bb044),
               fsize: 14,
@@ -104,7 +115,7 @@ class FoodDetailsWidget extends StatelessWidget {
         ),
         kheight,
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const InfoWidget(
               icon: Icons.star,
@@ -132,6 +143,21 @@ class FoodDetailsWidget extends StatelessWidget {
             ),
           ],
         ),
+        kheight15,
+        RatingBar.builder(
+          initialRating: dataQ.foodRating.toDouble(),
+          minRating: 1,
+          direction: Axis.horizontal,
+          allowHalfRating: true,
+          itemCount: 5,
+          itemSize: 30,
+          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+          itemBuilder: (context, _) => const Icon(
+            Icons.star,
+            color: Colors.amber,
+          ),
+          onRatingUpdate: (rating) {},
+        ),
         kheight20,
         Text(
           'Description',
@@ -142,66 +168,6 @@ class FoodDetailsWidget extends StatelessWidget {
         Text(
           'Masala Dosa / dosey / dosai is a variation of the popular South Indian dosa which has its origins in Tuluva Udupi cuisine of Karnataka. It is made from rice, lentils, potato, fenugreek, ghee and curry leaves, and served with chutneys and sambar. It is popular in South India.',
           style: primaryFontDSansoff(fsize: 13, fcolor: Colors.grey),
-        )
-      ],
-    );
-  }
-}
-
-gFontsOleo(
-    {Color dcCl = kWhiteColor,
-    var td = TextDecoration.none,
-    double sz = 16,
-    double ls = 0,
-    FontWeight fw = FontWeight.bold,
-    Color cl = kBlackColor}) {
-  return GoogleFonts.mukta(
-    decorationColor: dcCl,
-    decoration: td,
-    fontSize: sz,
-    letterSpacing: ls,
-    fontWeight: fw,
-    color: cl,
-  );
-}
-
-class InfoWidget extends StatelessWidget {
-  const InfoWidget({
-    Key? key,
-    required this.iconClr,
-    required this.icon,
-    required this.info,
-    required this.time,
-  }) : super(key: key);
-  final String time;
-  final IconData icon;
-  final String info;
-  final Color iconClr;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 15),
-        Icon(
-          (icon),
-          color: iconClr,
-          size: 20,
-        ),
-        const SizedBox(height: 10),
-        Text(
-          time,
-          style: gFontsOleo(
-            cl: kBlackColor.withOpacity(.7),
-            sz: 14,
-          ),
-        ),
-        Text(
-          info,
-          style: gFontsOleo(
-            cl: Colors.grey,
-            sz: 12,
-          ),
         )
       ],
     );
@@ -248,7 +214,7 @@ class CustomedFoodContainerWid extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 55),
+          padding: const EdgeInsets.symmetric(horizontal: 50),
           child: Row(
             children: [
               Flexible(
@@ -256,7 +222,7 @@ class CustomedFoodContainerWid extends StatelessWidget {
                     tag: dataQ.foodImage,
                     child: Image(
                       image: NetworkImage(dataQ.foodImage),
-                      height: 210,
+                      height: 220,
                     )),
               ),
             ],

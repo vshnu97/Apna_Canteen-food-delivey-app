@@ -66,14 +66,11 @@ class SouthIndianFoodWidget extends StatelessWidget {
                               color: kBlackColor)),
                     ),
                     kheight5,
-                    Text(dataQ.foodPrice.toString(),
-                        // '₹ 130',
+                    Text("₹ ${dataQ.foodPrice}",
                         style: const TextStyle(
                             fontSize: 18,
                             color: Colors.grey,
                             fontWeight: FontWeight.bold)),
-                    // kheight5,
-                    // const AddButton()
                   ],
                 ))
           ],
