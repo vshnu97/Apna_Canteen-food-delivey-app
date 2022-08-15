@@ -10,7 +10,7 @@ class LogInAuth extends ChangeNotifier {
   LogInAuth(this.firebase);
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
- 
+
   Future<String> googleLogIn(BuildContext context) async {
     try {
       final isLogged = await GoogleSignIn().isSignedIn();
@@ -20,21 +20,18 @@ class LogInAuth extends ChangeNotifier {
         return Future.value("Ocurred an error");
       }
 
- final cred = await result.authentication;
-final AuthCredential credential =GoogleAuthProvider.credential(
+      final cred = await result.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
           accessToken: cred.accessToken, idToken: cred.idToken);
 
+      final User? user = (await _auth.signInWithCredential(credential)).user;
 
-     
-  final User? user =  (await _auth.signInWithCredential(credential)).user;
+      context.read<UserProvider>().addUserData(
+          currentUser: user!,
+          userName: user.displayName,
+          userImage: user.photoURL,
+          userEmail: user.email);
 
-     context.read<UserProvider>().addUserData(
-      currentUser: user!,
-       userName: user.displayName, 
-       userImage: user.photoURL, 
-       userEmail: user.email
-       );
- 
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const ScreenHome()));
       return Future.value('');

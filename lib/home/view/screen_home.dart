@@ -67,7 +67,7 @@ class ScreenHome extends StatelessWidget {
                             itemBuilder: ((context, index) {
                               final dataQ = value.southIndianList[index];
                               return SouthIndianFoodWidget(
-                                dataQ: dataQ,
+                                dataQ: dataQ,index:index
                               );
                             }))
                         : const CupertinoActivityIndicator(

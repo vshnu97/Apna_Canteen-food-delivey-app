@@ -49,44 +49,7 @@ class ChineseFoodWidget extends StatelessWidget {
                         style:
                             const TextStyle(fontSize: 18, color: Colors.grey)),
                     kheight5,
-                    Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        height: 28,
-                        width: 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: const Icon(
-                                Icons.remove,
-                                size: 20,
-                                color: Color(0xffffd018),
-                              ),
-                            ),
-                            const Text(
-                              '1',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: kBlackColor,
-                              ),
-                            ),
-                            const Icon(
-                              Icons.add,
-                              color: Color(0xffffd018),
-                              size: 20,
-                            ),
-                          ],
-                        ))
+                     //AddButton(southIndianList: null,)
                   ],
                 ))
           ],
