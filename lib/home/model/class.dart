@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ModelClass {
   String foodName;
@@ -7,6 +6,7 @@ class ModelClass {
   String foodSideDish;
   num foodRating;
   num foodOfferPrice;
+  bool foodFav;
 
   ModelClass(
       {required this.foodImage,
@@ -14,6 +14,7 @@ class ModelClass {
       required this.foodPrice,
       required this.foodSideDish,
       required this.foodRating,
+      required this.foodFav,
       required this.foodOfferPrice});
 
   Map<String, dynamic> toSnapshot() {
@@ -23,19 +24,19 @@ class ModelClass {
       'foodImage': foodImage,
       'foodSideDish': foodSideDish,
       'foodRating': foodRating,
-      'foodOfferPrice': foodOfferPrice
+      'foodOfferPrice': foodOfferPrice,
+      'foodFav': foodFav
     };
   }
 
-  factory ModelClass.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  factory ModelClass.fromSnapshot(Map<String, dynamic> snapshot) {
     return ModelClass(
-      foodImage: snapshot['foodImage'],
-      foodName: snapshot['foodName'],
-      foodPrice: snapshot['foodPrice'],
-      foodSideDish: snapshot['foodSideDish'],
-      foodRating: snapshot['foodRating'],
-      foodOfferPrice: snapshot['foodOfferPrice'],
-    );
+        foodImage: snapshot['foodImage'],
+        foodName: snapshot['foodName'],
+        foodPrice: snapshot['foodPrice'],
+        foodSideDish: snapshot['foodSideDish'],
+        foodRating: snapshot['foodRating'],
+        foodOfferPrice: snapshot['foodOfferPrice'],
+        foodFav: snapshot['foodFav']);
   }
 }

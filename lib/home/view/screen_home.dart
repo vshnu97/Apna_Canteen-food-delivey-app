@@ -1,3 +1,4 @@
+import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/home/view/widgets/chinese.dart';
 import 'package:apna_canteen/home/view/widgets/south_indian.dart';
 import 'package:apna_canteen/home/viewmodel/home_prov.dart';
@@ -5,15 +6,18 @@ import 'package:apna_canteen/review_cart/view/review_cart.dart';
 import 'package:apna_canteen/search/view/screen_search.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ScreenHome extends StatelessWidget {
   const ScreenHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final prov = Provider.of<HomeProv>(context);
     return Scaffold(
         drawer: const Drawer(),
         appBar: AppBar(
@@ -50,7 +54,54 @@ class ScreenHome extends StatelessWidget {
           child: ListView(
             physics: const BouncingScrollPhysics(),
             children: [
-              const TopHomeContainerWid(),
+              Consumer<HomeProv>(
+                builder: (context, value, child) => Column(
+                  children: [
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        height: 180.0,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 5),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 2700),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        pauseAutoPlayOnTouch: true,
+                        viewportFraction: 1,
+                        onPageChanged: (index, reason) {
+                          value.carouselSlider(index);
+                        },
+                      ),
+                      items: value.cardList.map((card) {
+                        return Builder(builder: (BuildContext context) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.30,
+                            width: MediaQuery.of(context).size.width,
+                            child: card,
+                          );
+                        });
+                      }).toList(),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: value.cardList.map((url) {
+                        int index = value.cardList.indexOf(url);
+                        return Container(
+                          width: 8.0,
+                          height: 8.0,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 4.0, horizontal: 2.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: value.carouselIndex == index
+                                ? Colors.red
+                                : const Color.fromARGB(102, 146, 180, 221),
+                          ),
+                        );
+                      }).toList(),
+                    )
+                  ],
+                ),
+              ),
               kheight20,
               CategoryRowWid(
                 title: 'South Indian',
@@ -58,17 +109,20 @@ class ScreenHome extends StatelessWidget {
               kheight15,
               LimitedBox(
                   maxHeight: 210,
-                  child: Consumer<HomeProv>(builder: (context, value, child) {
-                    return value.southIndianList.isNotEmpty
+                  child: StreamBuilder(
+                    stream:prov.southIndianCollection.snapshots() ,
+                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                      List<ModelClass> list = prov.convertToList(streamSnapshot);
+                    return streamSnapshot.hasData
                         ? ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: value.southIndianList.length,
+                            itemCount: list.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: ((context, index) {
-                              final dataQ = value.southIndianList[index];
+                              final dataQ = list[index];
+                              final id  = streamSnapshot.data!.docs[index];
                               return SouthIndianFoodWidget(
-                                dataQ: dataQ,index:index
-                              );
+                                  dataQ: dataQ, id:id.id);
                             }))
                         : const CupertinoActivityIndicator(
                             radius: 40,

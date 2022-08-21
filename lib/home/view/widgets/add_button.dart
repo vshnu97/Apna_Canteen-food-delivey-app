@@ -1,16 +1,16 @@
-import 'package:apna_canteen/home/viewmodel/add_button_prov.dart';
+import 'package:apna_canteen/home/model/class.dart';
+import 'package:apna_canteen/review_cart/viewmodel/review_prov.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddButton extends StatelessWidget {
-  const AddButton( {
-    Key? key,
-  }) : super(key: key);
+class ProductAddButton extends StatelessWidget {
+  final ModelClass model;
+  const ProductAddButton({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AddButtonProv>(
+    return Consumer<ReviewCartProv>(
       builder: (context, value, child) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           height: 28,
@@ -69,6 +69,8 @@ class AddButton extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       value.changeValue();
+
+                      value.reviewCartData(model: model);
                     },
                     child: const Text(
                       'ADD',

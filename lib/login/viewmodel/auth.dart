@@ -32,8 +32,8 @@ class LogInAuth extends ChangeNotifier {
           userImage: user.photoURL,
           userEmail: user.email);
 
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const ScreenHome()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ScreenHome()));
       return Future.value('');
     } on FirebaseAuthException catch (exe) {
       return Future.value(exe.message);

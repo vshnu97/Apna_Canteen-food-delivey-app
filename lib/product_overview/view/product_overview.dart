@@ -1,6 +1,7 @@
 import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/widgets/bottom_bar.dart';
 import 'package:apna_canteen/product_overview/view/widgets/info_widget.dart';
+import 'package:apna_canteen/product_overview/viewmodel/fav_prov.dart';
 import 'package:apna_canteen/product_overview/viewmodel/overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/fonts/font.dart';
@@ -12,7 +13,8 @@ import 'package:provider/provider.dart';
 
 class ScreenProductOverview extends StatelessWidget {
   final ModelClass dataQ;
-  const ScreenProductOverview({Key? key, required this.dataQ})
+  final String id;
+  const ScreenProductOverview({Key? key, required this.dataQ, required this.id})
       : super(key: key);
 
   @override
@@ -28,9 +30,7 @@ class ScreenProductOverview extends StatelessWidget {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
-            FoodNameOverviewHead(
-              dataQ: dataQ,
-            ),
+            FoodNameOverviewHead(dataQ: dataQ, id: id),
             kheight,
             CustomedFoodContainerWid(
               dataQ: dataQ,
@@ -54,16 +54,16 @@ class BottomBarwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: const [
         BottomWidget(
-          iconColor: kWhiteColor,
+          iconColor: Colors.red,
           icon: Icons.favorite_outline,
-          color: kWhiteColor,
+          color: kBlackColor,
           subtitle: '',
           title: 'Add to wishlist',
-          backGroundColor: kBlackColor.withOpacity(1),
+          backGroundColor: kWhiteColor,
         ),
-        const BottomWidget(
+        BottomWidget(
           iconColor: kBlackColor,
           icon: Icons.room_service,
           color: kBlackColor,
@@ -102,7 +102,7 @@ class FoodDetailsWidget extends StatelessWidget {
                   decoration: TextDecoration.lineThrough,
                   fontSize: 18,
                   color: Colors.grey),
-            )
+            ),
           ],
         ),
         kheight,
@@ -204,7 +204,7 @@ class CustomedFoodContainerWid extends StatelessWidget {
                     kheight5,
                     Text(
                       dataQ.foodSideDish,
-                      style: primaryFont(fsize: 15, fcolor: kWhiteColor),
+                      style: primaryFont(fsize: 16, fcolor: kWhiteColor),
                     ),
                     kheight30
                   ],
@@ -234,14 +234,52 @@ class CustomedFoodContainerWid extends StatelessWidget {
 }
 
 class FoodNameOverviewHead extends StatelessWidget {
+  final String id;
   final ModelClass dataQ;
-  const FoodNameOverviewHead({Key? key, required this.dataQ}) : super(key: key);
+  const FoodNameOverviewHead({Key? key, required this.dataQ, required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      dataQ.foodName,
-      style: primaryFont(),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          dataQ.foodName,
+          style: primaryFont(),
+        ),
+        Consumer<OverviewProv>(
+          builder: (context, value, child) => value.favButton
+              ? IconButton(
+                  splashRadius: 26,
+                  onPressed: () {
+                    ProductOverPro.addWishList(
+                      data: dataQ,
+                      id: id,
+                      fav: false,
+                    );
+                    value.favButtonChange(favButton: false);
+                  },
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  ))
+              : IconButton(
+                  splashRadius: 26,
+                  onPressed: () {
+                    ProductOverPro.addWishList(
+                      data: dataQ,
+                      id: id,
+                      fav: true,
+                    );
+                    value.favButtonChange(favButton: true);
+                  },
+                  icon: const Icon(
+                    Icons.favorite_outline,
+                    color: Colors.red,
+                  )),
+        )
+      ],
     );
   }
 }
