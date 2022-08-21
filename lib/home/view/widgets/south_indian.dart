@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 class SouthIndianFoodWidget extends StatelessWidget {
   final ModelClass dataQ;
-  const SouthIndianFoodWidget(
-      {Key? key, required this.dataQ, required int index})
+ final String id;
+   const SouthIndianFoodWidget(
+      {Key? key, required this.dataQ,required this.id})
       : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class SouthIndianFoodWidget extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ScreenProductOverview(
-                                dataQ: dataQ,
+                                dataQ: dataQ,id:id
                               )));
                     },
                     child: Hero(
@@ -66,7 +67,7 @@ class SouthIndianFoodWidget extends StatelessWidget {
                               color: kBlackColor)),
                     ),
                     kheight5,
-                    Text("₹ ${dataQ.foodPrice}",
+                    Text("₹ ${dataQ.foodPrice}.00",
                         style: const TextStyle(
                             fontSize: 18,
                             color: Colors.grey,

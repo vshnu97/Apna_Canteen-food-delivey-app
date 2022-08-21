@@ -9,4 +9,12 @@ class OverviewProv extends ChangeNotifier{
     return price.toStringAsFixed(2);
 
   }
+
+ //fav button
+  bool favButton = false;
+
+  favButtonChange({required bool favButton}) {
+    this.favButton = favButton;
+    notifyListeners();
+  }
 }
