@@ -1,5 +1,5 @@
 import 'package:apna_canteen/home/model/class.dart';
-import 'package:apna_canteen/product_overview/viewmodel/fav_prov.dart';
+import 'package:apna_canteen/wishlist/viewmodel/fav_prov.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class WishlistFavWidget extends StatelessWidget {
                 ? IconButton(
                   splashRadius: 26,
                     onPressed: () {
-                      ProductOverPro.deleteFav(dataQ.foodName);
+                      ProductOverPro().deleteFav(dataQ.foodName);
                     },
                     icon: const Icon(Icons.favorite, color: Colors.red),
                   )

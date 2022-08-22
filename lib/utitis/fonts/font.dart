@@ -45,6 +45,7 @@ gFontsOleo(
     color: cl,
   );
 }
+
 gFontsLoginbottom(
     {Color dcCl = kWhiteColor,
     var td = TextDecoration.none,
@@ -61,4 +62,3 @@ gFontsLoginbottom(
     color: cl,
   );
 }
-
