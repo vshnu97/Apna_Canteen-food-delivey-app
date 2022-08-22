@@ -1,7 +1,7 @@
 import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/widgets/bottom_bar.dart';
+import 'package:apna_canteen/product_overview/view/widgets/fav_button.dart';
 import 'package:apna_canteen/product_overview/view/widgets/info_widget.dart';
-import 'package:apna_canteen/product_overview/viewmodel/fav_prov.dart';
 import 'package:apna_canteen/product_overview/viewmodel/overview.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/fonts/font.dart';
@@ -248,38 +248,10 @@ class FoodNameOverviewHead extends StatelessWidget {
           dataQ.foodName,
           style: primaryFont(),
         ),
-        Consumer<OverviewProv>(
-          builder: (context, value, child) => value.favButton
-              ? IconButton(
-                  splashRadius: 26,
-                  onPressed: () {
-                    ProductOverPro.addWishList(
-                      data: dataQ,
-                      id: id,
-                      fav: false,
-                    );
-                    value.favButtonChange(favButton: false);
-                  },
-                  icon: const Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  ))
-              : IconButton(
-                  splashRadius: 26,
-                  onPressed: () {
-                    ProductOverPro.addWishList(
-                      data: dataQ,
-                      id: id,
-                      fav: true,
-                    );
-                    value.favButtonChange(favButton: true);
-                  },
-                  icon: const Icon(
-                    Icons.favorite_outline,
-                    color: Colors.red,
-                  )),
-        )
+        WishlistFavWidget(dataQ: dataQ, id: id)
       ],
     );
   }
 }
+
+

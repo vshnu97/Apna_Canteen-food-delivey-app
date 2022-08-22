@@ -3,6 +3,7 @@ import 'package:apna_canteen/home/view/widgets/chinese.dart';
 import 'package:apna_canteen/home/view/widgets/south_indian.dart';
 import 'package:apna_canteen/home/viewmodel/home_prov.dart';
 import 'package:apna_canteen/review_cart/view/review_cart.dart';
+import 'package:apna_canteen/routes/routes.dart';
 import 'package:apna_canteen/search/view/screen_search.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
@@ -103,34 +104,38 @@ class ScreenHome extends StatelessWidget {
                 ),
               ),
               kheight20,
-              CategoryRowWid(
+              const CategoryRowWid(
                 title: 'South Indian',
+                screen: ScreenSearch(),
               ),
               kheight15,
               LimitedBox(
                   maxHeight: 210,
                   child: StreamBuilder(
-                    stream:prov.southIndianCollection.snapshots() ,
-                    builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-                      List<ModelClass> list = prov.convertToList(streamSnapshot);
-                    return streamSnapshot.hasData
-                        ? ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: list.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: ((context, index) {
-                              final dataQ = list[index];
-                              final id  = streamSnapshot.data!.docs[index];
-                              return SouthIndianFoodWidget(
-                                  dataQ: dataQ, id:id.id);
-                            }))
-                        : const CupertinoActivityIndicator(
-                            radius: 40,
-                          );
-                  })),
+                      stream: prov.southIndianCollection.snapshots(),
+                      builder: (context,
+                          AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                        List<ModelClass> list =
+                            prov.convertToList(streamSnapshot);
+                        return streamSnapshot.hasData
+                            ? ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: list.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: ((context, index) {
+                                  final dataQ = list[index];
+                                  final id = streamSnapshot.data!.docs[index];
+                                  return SouthIndianFoodWidget(
+                                      dataQ: dataQ, id: id.id);
+                                }))
+                            : const CupertinoActivityIndicator(
+                                radius: 40,
+                              );
+                      })),
               kheight20,
-              CategoryRowWid(
+              const CategoryRowWid(
                 title: 'Chinese',
+                screen: ScreenSearch(),
               ),
               kheight15,
               LimitedBox(
@@ -153,9 +158,11 @@ class ScreenHome extends StatelessWidget {
 }
 
 class CategoryRowWid extends StatelessWidget {
-  String title;
+  final String title;
+  final Widget screen;
 
-  CategoryRowWid({Key? key, required this.title}) : super(key: key);
+  const CategoryRowWid({Key? key, required this.title, required this.screen})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -168,21 +175,25 @@ class CategoryRowWid extends StatelessWidget {
                 letterSpacing: 2,
                 fontSize: 20,
                 color: kBlackColor)),
-        Text('view all',
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1.5,
-                fontSize: 20,
-                color: Colors.grey.withOpacity(.8)))
+        InkWell(
+          onTap: () {
+            RoutesScreen().pushScreen(context, screen);
+          },
+          child: Text('view all',
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1.5,
+                  fontSize: 20,
+                  color: Colors.grey.withOpacity(.8))),
+        )
       ],
     );
   }
 }
 
 class TopHomeContainerWid extends StatelessWidget {
-  const TopHomeContainerWid({
-    Key? key,
-  }) : super(key: key);
+  String image;
+  TopHomeContainerWid({Key? key, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -190,10 +201,8 @@ class TopHomeContainerWid extends StatelessWidget {
       height: 180,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          image: const DecorationImage(
-              fit: BoxFit.fitWidth,
-              image: NetworkImage(
-                  'https://img.freepik.com/free-vector/pepper-cooking-realistic-composition_1284-71901.jpg?w=1380&t=st=1660225838~exp=1660226438~hmac=3be46bac0a94e6af22ef95bc2e8e8895d5ec71105afa7483cb0a63d0879d1692'))),
+          image: DecorationImage(
+              fit: BoxFit.fitWidth, image: NetworkImage(image))),
       child: Row(children: [
         Expanded(
             flex: 2,
