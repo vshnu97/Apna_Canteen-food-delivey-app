@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 
 class SouthIndianFoodWidget extends StatelessWidget {
   final ModelClass dataQ;
- final String id;
-   const SouthIndianFoodWidget(
-      {Key? key, required this.dataQ,required this.id})
+  final String id;
+  const SouthIndianFoodWidget({Key? key, required this.dataQ, required this.id})
       : super(key: key);
 
   @override
@@ -17,7 +16,7 @@ class SouthIndianFoodWidget extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(right: 15),
         height: 200,
-        width: 140,
+        width: 155,
         decoration: BoxDecoration(
           color: kWhiteColor,
           borderRadius: BorderRadius.circular(15),
@@ -29,8 +28,11 @@ class SouthIndianFoodWidget extends StatelessWidget {
               flex: 1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children:  [
-                 WishlistFavWidget(dataQ: dataQ, id: id,)
+                children: [
+                  WishlistFavWidget(
+                    dataQ: dataQ,
+                    id: id,
+                  )
                 ],
               ),
             ),
@@ -39,9 +41,8 @@ class SouthIndianFoodWidget extends StatelessWidget {
                 child: GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScreenProductOverview(
-                                dataQ: dataQ,id:id
-                              )));
+                          builder: (context) =>
+                              ScreenProductOverview(dataQ: dataQ, id: id)));
                     },
                     child: Hero(
                         tag: dataQ.foodImage,
@@ -53,20 +54,29 @@ class SouthIndianFoodWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     kheight20,
-                    FittedBox(
-                      child: Text(dataQ.foodName,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                              fontSize: 18,
-                              color: kBlackColor)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: FittedBox(
+                        child: Text(dataQ.foodName,
+                            maxLines: 2,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1,
+                                fontSize: 18,
+                                color: kBlackColor)),
+                      ),
                     ),
-                    kheight5,
-                    Text("₹ ${dataQ.foodPrice}.00",
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        '₹ ${dataQ.foodPrice}.00',
                         style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             color: Colors.grey,
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ))
           ],

@@ -1,8 +1,9 @@
 import 'package:apna_canteen/home/model/class.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class ProductOverPro {
+class ProductOverPro extends ChangeNotifier {
   static addWishList(
       {required ModelClass data, required String id, required bool fav}) {
     final favData = ModelClass(
@@ -22,12 +23,30 @@ class ProductOverPro {
         .set(favData.toSnapshot());
   }
 
-  static deleteFav(String name) {
+   deleteFav(String name) {
     FirebaseFirestore.instance
         .collection('userData')
         .doc(FirebaseAuth.instance.currentUser!.email)
         .collection('wishList')
         .doc(name)
         .delete();
+  }
+
+  final favCollection = FirebaseFirestore.instance
+      .collection('userData')
+      .doc(FirebaseAuth.instance.currentUser!.email)
+      .collection('wishList');
+
+       List<ModelClass> convertToList(AsyncSnapshot<QuerySnapshot> snapshot) {
+    if (snapshot.hasData) {
+      List<ModelClass> newlist = snapshot.data!.docs.map((convert) {
+        return ModelClass.fromSnapshot(convert.data() as Map<String, dynamic>);
+      }).toList();
+
+      newlist = newlist.reversed.toList();
+      return newlist;
+    } else {
+      return [];
+    }
   }
 }

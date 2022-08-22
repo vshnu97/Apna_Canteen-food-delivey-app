@@ -7,6 +7,7 @@ import 'package:apna_canteen/routes/routes.dart';
 import 'package:apna_canteen/search/view/screen_search.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
+import 'package:apna_canteen/wishlist/view/screen_wishlist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,23 +21,14 @@ class ScreenHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final prov = Provider.of<HomeProv>(context);
     return Scaffold(
-        drawer: const Drawer(),
+        drawer: const Drawer(
+          child: DrawerDetials(),
+        ),
         appBar: AppBar(
           elevation: 0,
           foregroundColor: kBlackColor,
           title: const Text('Home'),
           actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ScreenSearch()));
-              },
-              icon: const Icon(
-                Icons.search,
-                size: 30,
-                color: kBlackColor,
-              ),
-            ),
             IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -154,6 +146,65 @@ class ScreenHome extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class DrawerDetials extends StatelessWidget {
+  
+  const DrawerDetials({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(0),
+      children: [
+        const DrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.green,
+          ),
+          child: UserAccountsDrawerHeader(
+            decoration: BoxDecoration(color: Colors.green),
+            accountName: Text(
+              "Abc def",
+              style: TextStyle(fontSize: 18),
+            ),
+            accountEmail: Text("xyz@gmail.com"),
+            currentAccountPictureSize: Size.square(50),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Color.fromARGB(255, 165, 255, 137),
+              child: Text(
+                "&",
+                style: TextStyle(fontSize: 30.0, color: Colors.blue),
+              ),
+            ),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.favorite),
+          title: const Text('Wishlist',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 2,
+                  fontSize: 14,
+                  color: kBlackColor)),
+          onTap: () {
+            RoutesScreen().pushScreen(context,  const ScreenWishlist());
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.logout),
+          title: const Text('LogOut',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 2,
+                  fontSize: 14,
+                  color: kBlackColor)),
+          onTap: () {},
+        ),
+      ],
+    );
   }
 }
 
