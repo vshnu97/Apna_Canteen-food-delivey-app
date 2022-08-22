@@ -21,4 +21,13 @@ class ProductOverPro {
         .doc(data.foodName)
         .set(favData.toSnapshot());
   }
+
+  static deleteFav(String name) {
+    FirebaseFirestore.instance
+        .collection('userData')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .collection('wishList')
+        .doc(name)
+        .delete();
+  }
 }

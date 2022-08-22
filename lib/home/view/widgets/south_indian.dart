@@ -1,5 +1,6 @@
 import 'package:apna_canteen/home/model/class.dart';
 import 'package:apna_canteen/product_overview/view/product_overview.dart';
+import 'package:apna_canteen/product_overview/view/widgets/fav_button.dart';
 import 'package:apna_canteen/utitis/colors/colors.dart';
 import 'package:apna_canteen/utitis/sizedbox/szbox.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +29,8 @@ class SouthIndianFoodWidget extends StatelessWidget {
               flex: 1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite_border_outlined,
-                        size: 25,
-                        color: Colors.red,
-                      ))
+                children:  [
+                 WishlistFavWidget(dataQ: dataQ, id: id,)
                 ],
               ),
             ),
